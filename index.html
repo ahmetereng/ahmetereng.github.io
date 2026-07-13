@@ -4,22 +4,27 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Ahmet Eren — Mobile App Developer</title>
+  <meta name="description" content="Ahmet Eren — Mobile app developer building iOS & Android apps with Flutter.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@400;500&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      --bg: #F7F5F0;
-      --ink: #1A1814;
-      --muted: #8A8680;
-      --accent: #2D5BE3;
-      --accent-soft: #EEF2FD;
-      --line: #E2DED8;
-      --card-bg: #FFFFFF;
-      --serif: 'DM Serif Display', Georgia, serif;
-      --sans: 'DM Sans', sans-serif;
-      --mono: 'DM Mono', monospace;
+      --bg: #09090B;
+      --bg-soft: #101013;
+      --card: #131316;
+      --card-hover: #18181B;
+      --line: #27272A;
+      --line-strong: #3F3F46;
+      --ink: #FAFAFA;
+      --muted: #A1A1AA;
+      --dim: #71717A;
+      --accent: #FAFAFA;
+      --display: 'Space Grotesk', sans-serif;
+      --body: 'Inter', sans-serif;
+      --mono: 'JetBrains Mono', monospace;
     }
 
     html { scroll-behavior: smooth; }
@@ -27,529 +32,636 @@
     body {
       background: var(--bg);
       color: var(--ink);
-      font-family: var(--sans);
+      font-family: var(--body);
       font-size: 16px;
       line-height: 1.7;
       -webkit-font-smoothing: antialiased;
       overflow-x: hidden;
     }
 
-    /* ── Layout ── */
-    .container {
-      max-width: 720px;
-      margin: 0 auto;
-      padding: 0 2rem;
+    ::selection { background: rgba(250,250,250,0.2); }
+
+    .container { max-width: 1080px; margin: 0 auto; padding: 0 24px; }
+
+    /* ── Ambient background (pure gradients — no filter/blur, keeps compositing cheap) ── */
+    .glow {
+      position: fixed;
+      pointer-events: none;
+      z-index: 0;
+      border-radius: 50%;
     }
+    .glow-1 {
+      width: 900px; height: 900px; top: -380px; left: -280px;
+      background: radial-gradient(circle closest-side, rgba(250,250,250,0.04), transparent);
+    }
+    .glow-2 {
+      width: 800px; height: 800px; top: 24vh; right: -340px;
+      background: radial-gradient(circle closest-side, rgba(250,250,250,0.03), transparent);
+    }
+
+    main, nav, footer { position: relative; z-index: 2; }
 
     /* ── Nav ── */
     nav {
       position: fixed;
       top: 0; left: 0; right: 0;
       z-index: 100;
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-      background: rgba(247,245,240,0.85);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      background: rgba(10,10,14,0.72);
       border-bottom: 1px solid var(--line);
     }
     .nav-inner {
-      max-width: 720px;
+      max-width: 1080px;
       margin: 0 auto;
-      padding: 0 2rem;
-      height: 56px;
+      padding: 0 24px;
+      height: 64px;
       display: flex;
       align-items: center;
       justify-content: space-between;
     }
     .nav-logo {
       font-family: var(--mono);
-      font-size: 13px;
+      font-size: 14px;
       font-weight: 500;
       color: var(--ink);
       text-decoration: none;
-      letter-spacing: -0.01em;
     }
-    .nav-logo span { color: var(--accent); }
-    .nav-links {
-      display: flex;
-      gap: 2rem;
-      list-style: none;
-    }
+    .nav-logo span { color: var(--muted); }
+    .nav-links { display: flex; gap: 2rem; list-style: none; align-items: center; }
     .nav-links a {
-      font-size: 13px;
-      font-weight: 400;
+      font-size: 13.5px;
+      font-weight: 500;
       color: var(--muted);
       text-decoration: none;
-      letter-spacing: 0.02em;
       transition: color 0.2s;
     }
     .nav-links a:hover { color: var(--ink); }
+    .nav-cta {
+      padding: 8px 18px;
+      border-radius: 10px;
+      background: var(--ink);
+      color: var(--bg) !important;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .nav-cta:hover { transform: translateY(-1px); box-shadow: 0 4px 20px rgba(255,255,255,0.15); }
 
     /* ── Hero ── */
     .hero {
-      padding: 140px 0 96px;
+      min-height: 92vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 140px 24px 80px;
     }
-    .hero-eyebrow {
-      font-family: var(--mono);
-      font-size: 12px;
-      font-weight: 500;
-      color: var(--accent);
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      margin-bottom: 1.5rem;
+    .hero h1 {
+      font-family: var(--display);
+      font-size: clamp(44px, 7.5vw, 92px);
+      font-weight: 700;
+      line-height: 1.02;
+      letter-spacing: -0.03em;
+      margin-bottom: 1.75rem;
       opacity: 0;
-      animation: fadeUp 0.7s 0.1s forwards;
+      animation: rise 0.8s 0.2s cubic-bezier(0.22,1,0.36,1) forwards;
     }
-    .hero-name {
-      font-family: var(--serif);
-      font-size: clamp(48px, 8vw, 80px);
-      line-height: 1.0;
-      letter-spacing: -0.02em;
-      color: var(--ink);
-      margin-bottom: 0.25rem;
-      opacity: 0;
-      animation: fadeUp 0.7s 0.2s forwards;
-    }
-    .hero-name em {
-      font-style: italic;
-      color: var(--ink);
-    }
-    .hero-title {
-      font-family: var(--serif);
-      font-size: clamp(24px, 4vw, 38px);
-      line-height: 1.1;
-      letter-spacing: -0.01em;
-      color: var(--muted);
-      margin-bottom: 2.5rem;
-      opacity: 0;
-      animation: fadeUp 0.7s 0.3s forwards;
-    }
+    .hero h1 .grad { color: var(--muted); }
     .hero-desc {
-      font-size: 17px;
+      font-size: clamp(16px, 2vw, 19px);
       font-weight: 300;
       color: var(--muted);
-      max-width: 500px;
-      line-height: 1.75;
+      max-width: 560px;
       margin-bottom: 3rem;
       opacity: 0;
-      animation: fadeUp 0.7s 0.4s forwards;
+      animation: rise 0.8s 0.32s cubic-bezier(0.22,1,0.36,1) forwards;
     }
+    .hero-desc strong { color: var(--ink); font-weight: 500; }
     .hero-actions {
-      display: flex;
-      gap: 1rem;
-      flex-wrap: wrap;
+      display: flex; gap: 14px; flex-wrap: wrap;
       opacity: 0;
-      animation: fadeUp 0.7s 0.5s forwards;
+      animation: rise 0.8s 0.44s cubic-bezier(0.22,1,0.36,1) forwards;
     }
     .btn {
       display: inline-flex;
       align-items: center;
-      gap: 0.5rem;
-      padding: 0.75rem 1.5rem;
-      border-radius: 6px;
-      font-size: 14px;
-      font-weight: 500;
-      font-family: var(--sans);
-      text-decoration: none;
-      transition: all 0.2s;
-      cursor: pointer;
-      border: none;
-    }
-    .btn-primary {
-      background: var(--ink);
-      color: #fff;
-    }
-    .btn-primary:hover {
-      background: var(--accent);
-      transform: translateY(-1px);
-    }
-    .btn-secondary {
-      background: transparent;
-      color: var(--ink);
-      border: 1px solid var(--line);
-    }
-    .btn-secondary:hover {
-      border-color: var(--ink);
-      background: var(--card-bg);
-      transform: translateY(-1px);
-    }
-
-    /* ── Section ── */
-    section {
-      padding: 80px 0;
-      border-top: 1px solid var(--line);
-    }
-    .section-label {
-      font-family: var(--mono);
-      font-size: 11px;
-      font-weight: 500;
-      color: var(--muted);
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-      margin-bottom: 3rem;
-    }
-    .section-label::before {
-      content: '01 ';
-      color: var(--accent);
-    }
-    #stack .section-label::before { content: '02 '; }
-    #contact .section-label::before { content: '03 '; }
-
-    /* ── Projects ── */
-    .project-card {
-      background: var(--card-bg);
-      border: 1px solid var(--line);
+      gap: 9px;
+      padding: 14px 28px;
       border-radius: 12px;
-      padding: 2rem;
-      transition: all 0.25s;
-      position: relative;
-      overflow: hidden;
+      font-family: var(--display);
+      font-size: 15px;
+      font-weight: 600;
+      text-decoration: none;
+      transition: transform 0.2s, box-shadow 0.2s, background 0.2s, border-color 0.2s;
     }
-    .project-card::before {
-      content: '';
-      position: absolute;
-      top: 0; left: 0; right: 0;
-      height: 3px;
-      background: var(--accent);
-      transform: scaleX(0);
-      transform-origin: left;
-      transition: transform 0.3s;
-    }
-    .project-card:hover { box-shadow: 0 8px 32px rgba(0,0,0,0.08); transform: translateY(-2px); }
-    .project-card:hover::before { transform: scaleX(1); }
+    .btn-primary { background: var(--ink); color: #09090B; }
+    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 32px rgba(250,250,250,0.15); }
+    .btn-ghost { color: var(--ink); border: 1px solid var(--line-strong); background: rgba(255,255,255,0.02); }
+    .btn-ghost:hover { transform: translateY(-2px); border-color: rgba(255,255,255,0.3); background: rgba(255,255,255,0.05); }
 
-    .project-meta {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      margin-bottom: 1rem;
+    @keyframes rise {
+      from { opacity: 0; transform: translateY(26px); }
+      to { opacity: 1; transform: translateY(0); }
     }
-    .project-tag {
+
+    /* ── Sections ── */
+    section { padding: 110px 0; }
+    .section-head { margin-bottom: 4rem; }
+    .section-tag {
       font-family: var(--mono);
-      font-size: 11px;
-      font-weight: 500;
-      color: var(--accent);
-      background: var(--accent-soft);
-      padding: 3px 10px;
-      border-radius: 100px;
-      letter-spacing: 0.04em;
-    }
-    .project-platform {
       font-size: 12px;
-      color: var(--muted);
-      display: flex;
-      align-items: center;
-      gap: 0.4rem;
+      color: var(--dim);
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      display: block;
+      margin-bottom: 0.9rem;
     }
-    .project-name {
-      font-family: var(--serif);
-      font-size: 26px;
-      letter-spacing: -0.02em;
-      margin-bottom: 0.75rem;
+    .section-title {
+      font-family: var(--display);
+      font-size: clamp(30px, 4.5vw, 46px);
+      font-weight: 700;
+      letter-spacing: -0.025em;
       line-height: 1.1;
     }
-    .project-desc {
-      font-size: 15px;
-      color: var(--muted);
-      font-weight: 300;
-      line-height: 1.6;
-      margin-bottom: 1.5rem;
+    .section-sub { color: var(--muted); font-weight: 300; margin-top: 1rem; max-width: 520px; }
+
+    /* ── App showcase ── */
+    .app {
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      background: linear-gradient(180deg, var(--card) 0%, var(--bg-soft) 100%);
+      overflow: hidden;
+      margin-bottom: 3.5rem;
     }
-    .project-link {
+    .app-body {
+      display: grid;
+      grid-template-columns: 380px 1fr;
+      gap: 0;
+    }
+    .app-info {
+      padding: 3rem 2.5rem;
+      display: flex;
+      flex-direction: column;
+      border-right: 1px solid var(--line);
+    }
+    .app-icon {
+      width: 64px; height: 64px;
+      border-radius: 15px;
+      display: block;
+      margin-bottom: 1.75rem;
+    }
+    .app--albas .app-icon, .app--sb .app-icon, .app--fc .app-icon { box-shadow: 0 8px 24px rgba(0,0,0,0.4); }
+    .app--fc .app-tagline { color: var(--muted); }
+    .fc-visual {
+      position: relative;
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
+      padding: 3rem 2.5rem 0;
+      overflow: hidden;
+    }
+    .fc-mascot {
+      display: block;
+      width: min(280px, 62%);
+      height: auto;
+    }
+    .fc-note {
+      position: absolute;
+      top: 22%;
+      right: 14%;
+      font-family: var(--display);
+      font-size: clamp(18px, 2.4vw, 26px);
+      font-weight: 600;
+      color: var(--ink);
+      transform: rotate(-5deg);
+    }
+    .app-status {
+      margin-top: auto;
       display: inline-flex;
       align-items: center;
-      gap: 0.4rem;
-      font-size: 13px;
-      font-weight: 500;
-      color: var(--accent);
-      text-decoration: none;
-      border-bottom: 1px solid transparent;
-      transition: border-color 0.2s;
-      padding-bottom: 1px;
+      gap: 9px;
+      width: fit-content;
+      padding: 11px 20px;
+      border-radius: 10px;
+      border: 1px dashed var(--line-strong);
+      font-family: var(--mono);
+      font-size: 12.5px;
+      color: var(--muted);
     }
-    .project-link:hover { border-color: var(--accent); }
-    .project-link svg { transition: transform 0.2s; }
-    .project-link:hover svg { transform: translateX(3px); }
+    .app-status::before {
+      content: '';
+      width: 7px; height: 7px;
+      border-radius: 50%;
+      background: #F59E0B;
+    }
+    .app-name {
+      font-family: var(--display);
+      font-size: 27px;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      margin-bottom: 0.4rem;
+    }
+    .app-tagline {
+      font-family: var(--mono);
+      font-size: 12.5px;
+      margin-bottom: 1.5rem;
+    }
+    .app--albas .app-tagline { color: var(--muted); }
+    .app--sb .app-tagline { color: var(--muted); }
+    .app-desc {
+      font-size: 15px;
+      font-weight: 300;
+      color: var(--muted);
+      line-height: 1.75;
+      margin-bottom: 2rem;
+    }
+    .app-chips { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 2.25rem; }
+    .chip {
+      font-family: var(--mono);
+      font-size: 11.5px;
+      color: var(--muted);
+      border: 1px solid var(--line-strong);
+      background: rgba(255,255,255,0.03);
+      padding: 5px 12px;
+      border-radius: 8px;
+    }
+    .app-store-link {
+      margin-top: auto;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      width: fit-content;
+      padding: 12px 22px;
+      border-radius: 12px;
+      background: var(--ink);
+      color: var(--bg);
+      text-decoration: none;
+      font-family: var(--display);
+      font-size: 14px;
+      font-weight: 600;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .app-store-link:hover { transform: translateY(-2px); box-shadow: 0 8px 28px rgba(255,255,255,0.15); }
+    .app-store-link svg { flex-shrink: 0; }
+
+    .app-shots {
+      padding: 2.5rem 0 2.5rem 2.5rem;
+      display: flex;
+      gap: 18px;
+      overflow-x: auto;
+      align-items: center;
+      scrollbar-width: thin;
+      scrollbar-color: rgba(255,255,255,0.15) transparent;
+      -webkit-overflow-scrolling: touch;
+    }
+    .app-shots::-webkit-scrollbar { height: 6px; }
+    .app-shots::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.12); border-radius: 100px; }
+    .app-shots::after { content: ''; flex: 0 0 24px; }
+    .shot {
+      flex: 0 0 auto;
+      width: 218px;
+      border-radius: 14px;
+      overflow: hidden;
+      border: 1px solid var(--line-strong);
+      background: var(--bg-soft);
+      transition: transform 0.35s cubic-bezier(0.22,1,0.36,1), box-shadow 0.35s;
+    }
+    .shot img { display: block; width: 100%; height: auto; }
+    .shot:hover { transform: translateY(-8px) scale(1.02); box-shadow: 0 24px 48px rgba(0,0,0,0.5); }
 
     /* ── Stack ── */
     .stack-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
-      gap: 1px;
-      background: var(--line);
+      grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+      gap: 14px;
+    }
+    .stack-card {
       border: 1px solid var(--line);
       border-radius: 12px;
-      overflow: hidden;
-    }
-    .stack-item {
-      background: var(--card-bg);
-      padding: 1.5rem 1.25rem;
-      display: flex;
-      flex-direction: column;
-      gap: 0.5rem;
-    }
-    .stack-icon {
-      width: 32px;
-      height: 32px;
+      background: var(--card);
+      padding: 1.6rem 1.5rem;
       display: flex;
       align-items: center;
-      color: var(--accent);
+      gap: 1rem;
+      transition: transform 0.25s, border-color 0.25s, background 0.25s;
     }
-    .stack-name {
-      font-size: 14px;
-      font-weight: 500;
+    .stack-card:hover { transform: translateY(-3px); border-color: var(--line-strong); background: var(--card-hover); }
+    .stack-ico {
+      width: 44px; height: 44px;
+      border-radius: 12px;
+      background: rgba(250,250,250,0.06);
       color: var(--ink);
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
     }
+    .stack-name { font-family: var(--display); font-size: 16px; font-weight: 600; }
+    .stack-note { font-size: 12.5px; color: var(--dim); }
 
     /* ── Contact ── */
-    .contact-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 1rem;
-    }
-    .contact-item {
-      background: var(--card-bg);
+    .contact-wrap {
       border: 1px solid var(--line);
-      border-radius: 10px;
-      padding: 1.5rem;
-      text-decoration: none;
-      display: flex;
-      align-items: center;
-      gap: 1rem;
-      transition: all 0.2s;
-      color: var(--ink);
+      border-radius: 16px;
+      background:
+        radial-gradient(600px 300px at 20% 0%, rgba(250,250,250,0.05), transparent 60%),
+        radial-gradient(500px 280px at 85% 100%, rgba(250,250,250,0.03), transparent 60%),
+        var(--card);
+      padding: clamp(2.5rem, 6vw, 5rem);
+      text-align: center;
     }
-    .contact-item:hover {
-      border-color: var(--accent);
-      transform: translateY(-1px);
-      box-shadow: 0 4px 16px rgba(45,91,227,0.08);
+    .contact-wrap h2 {
+      font-family: var(--display);
+      font-size: clamp(30px, 5vw, 52px);
+      font-weight: 700;
+      letter-spacing: -0.025em;
+      line-height: 1.08;
+      margin-bottom: 2.25rem;
     }
-    .contact-icon {
-      width: 40px;
-      height: 40px;
-      background: var(--accent-soft);
-      border-radius: 8px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-shrink: 0;
-      color: var(--accent);
-    }
-    .contact-label {
-      font-size: 11px;
-      color: var(--muted);
-      font-family: var(--mono);
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      margin-bottom: 2px;
-    }
-    .contact-value {
-      font-size: 14px;
-      font-weight: 500;
-      color: var(--ink);
-    }
+    .contact-wrap h2 .grad { color: var(--muted); }
+    .contact-actions { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
 
     /* ── Footer ── */
     footer {
       border-top: 1px solid var(--line);
-      padding: 2rem 0;
-      text-align: center;
+      padding: 2.2rem 0;
     }
-    .footer-text {
-      font-family: var(--mono);
-      font-size: 12px;
-      color: var(--muted);
+    .footer-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      flex-wrap: wrap;
     }
-    .footer-text span { color: var(--accent); }
+    .footer-inner p { font-family: var(--mono); font-size: 12.5px; color: var(--dim); }
+    .footer-inner p span { color: var(--muted); }
+    .footer-links { display: flex; gap: 1.5rem; list-style: none; }
+    .footer-links a { font-size: 13px; color: var(--muted); text-decoration: none; transition: color 0.2s; }
+    .footer-links a:hover { color: var(--ink); }
 
-    /* ── Divider dot ── */
-    .dot {
-      display: inline-block;
-      width: 5px;
-      height: 5px;
-      background: var(--accent);
-      border-radius: 50%;
-      margin: 0 0.6rem;
-      vertical-align: middle;
-    }
-
-    /* ── Animations ── */
-    @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(18px); }
-      to   { opacity: 1; transform: translateY(0); }
-    }
-    .fade-in {
+    /* ── Reveal on scroll ── */
+    .reveal {
       opacity: 0;
-      transform: translateY(16px);
-      transition: opacity 0.6s, transform 0.6s;
+      transform: translateY(30px);
+      transition: opacity 0.8s cubic-bezier(0.22,1,0.36,1), transform 0.8s cubic-bezier(0.22,1,0.36,1);
     }
-    .fade-in.visible {
-      opacity: 1;
-      transform: none;
-    }
+    .reveal.visible { opacity: 1; transform: none; }
 
     /* ── Responsive ── */
+    @media (max-width: 900px) {
+      .app-body { grid-template-columns: 1fr; }
+      .app-info { border-right: none; border-bottom: 1px solid var(--line); padding: 2.25rem 1.75rem; }
+      .app-shots { padding: 1.75rem 0 1.75rem 1.75rem; }
+      .shot { width: 185px; }
+    }
     @media (max-width: 600px) {
-      .contact-grid { grid-template-columns: 1fr; }
-      .nav-links { display: none; }
-      .stack-grid { grid-template-columns: 1fr 1fr; }
+      .nav-links li:not(:last-child) { display: none; }
+      .hero { padding-top: 120px; }
+      .hero-meta { gap: 2rem; }
+      section { padding: 80px 0; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+      .hero-badge, .hero h1, .hero-desc, .hero-actions, .hero-meta, .reveal { opacity: 1; transform: none; }
     }
   </style>
 </head>
 <body>
 
+  <div class="glow glow-1"></div>
+  <div class="glow glow-2"></div>
+
   <!-- Nav -->
   <nav>
     <div class="nav-inner">
-      <a class="nav-logo" href="#"><span>ae</span>.dev</a>
+      <a class="nav-logo" href="#"><span>~/</span>ahmeteren</a>
       <ul class="nav-links">
-        <li><a href="#projects">projects</a></li>
-        <li><a href="#stack">stack</a></li>
-        <li><a href="#contact">contact</a></li>
+        <li><a href="#apps">Apps</a></li>
+        <li><a href="#stack">Stack</a></li>
+        <li><a href="#contact" class="nav-cta">Get in touch</a></li>
       </ul>
     </div>
   </nav>
 
-  <!-- Hero -->
-  <div class="container">
-    <div class="hero">
-      <h1 class="hero-name">Ahmet <em>Eren</em></h1>
-      <p class="hero-title">Mobile App Developer</p>
+  <main>
+    <!-- Hero -->
+    <header class="container hero">
+      <h1>Ahmet <span class="grad">Eren</span></h1>
       <p class="hero-desc">
-        I build iOS and Android apps with Flutter.
-        Clean code, simple interfaces, and great user experience.
+        Mobile app developer. I build iOS &amp; Android apps with <strong>Flutter</strong>.
       </p>
       <div class="hero-actions">
-        <a href="#projects" class="btn btn-primary">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg>
-          View my work
+        <a href="#apps" class="btn btn-primary">
+          Apps
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M19 12l-7 7-7-7"/></svg>
         </a>
-        <a href="#contact" class="btn btn-secondary">
-          Get in touch
-        </a>
-      </div>
-    </div>
-  </div>
-
-  <!-- Projects -->
-  <section id="projects">
-    <div class="container">
-      <p class="section-label fade-in">Projects</p>
-      
-      <div class="project-card fade-in">
-        <div class="project-meta">
-          <span class="project-tag">Flutter · Dart</span>
-          <span class="project-platform">
-            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20z"/><path d="M12 8l4 4-4 4M8 12h8"/></svg>
-            App Store
-          </span>
-        </div>
-        <h3 class="project-name">Single Bundle</h3>
-        <p class="project-desc">
-          An iOS app about discovering new hobbies, built with Flutter and shipped to the App Store.
-        </p>
-        <a href="https://apps.apple.com/tr/app/single-bundle/id6753986431" class="project-link" target="_blank" rel="noopener">
-          View on App Store
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        <a href="https://github.com/ahmetereng" target="_blank" rel="noopener" class="btn btn-ghost">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>
+          GitHub
         </a>
       </div>
+    </header>
 
-      <div class="project-card fade-in" style="margin-top: 1.5rem;">
-        <div class="project-meta">
-          <span class="project-tag">Flutter · Dart</span>
-          <span class="project-platform">
-            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20z"/><path d="M12 8l4 4-4 4M8 12h8"/></svg>
-            App Store
-          </span>
+    <!-- Apps -->
+    <section id="apps">
+      <div class="container">
+        <div class="section-head reveal">
+          <span class="section-tag">01</span>
+          <h2 class="section-title">Apps</h2>
         </div>
-        <h3 class="project-name">Albas - Lesson Manager</h3>
-        <p class="project-desc">
-          An iOS app for tracking and managing lessons smoothly, built with Flutter and shipped to the App Store.
-        </p>
-        <a href="https://apps.apple.com/tr/app/albas-lesson-manager/id6762129758" class="project-link" target="_blank" rel="noopener">
-          View on App Store
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-        </a>
+
+        <!-- Albas -->
+        <article class="app app--albas reveal">
+          <div class="app-body">
+            <div class="app-info">
+              <img class="app-icon" src="assets/albas_images/albasicon.webp" alt="Albas app icon" width="64" height="64">
+              <h3 class="app-name">Albas</h3>
+              <p class="app-tagline">Plan. Teach. Thrive.</p>
+              <p class="app-desc">
+                Lesson manager for tutors. Schedule lessons, track progress and earnings.
+              </p>
+              <div class="app-chips">
+                <span class="chip">Flutter</span>
+                <span class="chip">Dart</span>
+                <span class="chip">iOS</span>
+                <span class="chip">Scheduling</span>
+              </div>
+              <a class="app-store-link" href="https://apps.apple.com/tr/app/albas-lesson-manager/id6762129758" target="_blank" rel="noopener">
+                <svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
+                View on App Store
+              </a>
+            </div>
+            <div class="app-shots">
+              <div class="shot"><img width="640" height="1384" src="assets/albas_images/albas-4.png" alt="Albas screenshot" loading="lazy"></div>
+              <div class="shot"><img width="640" height="1384" src="assets/albas_images/albas.png" alt="Albas — daily lessons dashboard" loading="lazy"></div>
+              <div class="shot"><img width="640" height="1384" src="assets/albas_images/albas-3.png" alt="Albas screenshot" loading="lazy"></div>
+              <div class="shot"><img width="640" height="1384" src="assets/albas_images/albas-2.png" alt="Albas screenshot" loading="lazy"></div>
+              <div class="shot"><img width="640" height="1384" src="assets/albas_images/albas-1.png" alt="Albas — schedule and calendar view" loading="lazy"></div>
+            </div>
+          </div>
+        </article>
+
+        <!-- Single Bundle -->
+        <article class="app app--sb reveal">
+          <div class="app-body">
+            <div class="app-info">
+              <img class="app-icon" src="assets/sb_images/sbicon.webp" alt="Single Bundle app icon" width="64" height="64">
+              <h3 class="app-name">Single Bundle</h3>
+              <p class="app-tagline">Discover new interests.</p>
+              <p class="app-desc">
+                Hobby discovery app. 700 real-world achievements in themed bundles.
+              </p>
+              <div class="app-chips">
+                <span class="chip">Flutter</span>
+                <span class="chip">Dart</span>
+                <span class="chip">iOS</span>
+                <span class="chip">Gamification</span>
+              </div>
+              <a class="app-store-link" href="https://apps.apple.com/tr/app/single-bundle/id6753986431" target="_blank" rel="noopener">
+                <svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
+                View on App Store
+              </a>
+            </div>
+            <div class="app-shots">
+              <div class="shot"><img width="640" height="1384" src="assets/sb_images/sb-3.png" alt="Single Bundle — discover new interests" loading="lazy"></div>
+              <div class="shot"><img width="640" height="1384" src="assets/sb_images/sb-2.png" alt="Single Bundle screenshot" loading="lazy"></div>
+              <div class="shot"><img width="640" height="1384" src="assets/sb_images/sb-1.png" alt="Single Bundle — completing bundles" loading="lazy"></div>
+              <div class="shot"><img width="640" height="1384" src="assets/sb_images/sb.png" alt="Single Bundle — badge collection" loading="lazy"></div>
+            </div>
+          </div>
+        </article>
+
+        <!-- Fresh Chef -->
+        <article class="app app--fc reveal">
+          <div class="app-body">
+            <div class="app-info">
+              <img class="app-icon" src="assets/freshchef_images/freshcheficon.png" alt="Fresh Chef app icon" width="64" height="64">
+              <h3 class="app-name">Fresh Chef</h3>
+              <p class="app-tagline">Your kitchen buddy.</p>
+              <p class="app-desc">
+                Kitchen tracker. Log groceries, track expiry dates.
+              </p>
+              <div class="app-chips">
+                <span class="chip">Flutter</span>
+                <span class="chip">Dart</span>
+                <span class="chip">Drift</span>
+                <span class="chip">Supabase</span>
+              </div>
+              <span class="app-status">In development</span>
+            </div>
+            <div class="fc-visual">
+              <span class="fc-note">Upcoming</span>
+              <img class="fc-mascot" src="assets/freshchef_images/mascot_1.png" alt="Fresh Chef mascot looking up" width="480" height="480" loading="lazy">
+            </div>
+          </div>
+        </article>
       </div>
+    </section>
 
-    </div>
-  </section>
-
-  <!-- Stack -->
-  <section id="stack">
-    <div class="container">
-      <p class="section-label fade-in">Stack</p>
-      <div class="stack-grid fade-in">
-        <div class="stack-item">
-          <div class="stack-icon">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg>
-          </div>
-          <div class="stack-name">Flutter</div>
+    <!-- Stack -->
+    <section id="stack">
+      <div class="container">
+        <div class="section-head reveal">
+          <span class="section-tag">02</span>
+          <h2 class="section-title">Stack</h2>
         </div>
-        <div class="stack-item">
-          <div class="stack-icon">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+        <div class="stack-grid reveal">
+          <div class="stack-card">
+            <div class="stack-ico">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg>
+            </div>
+            <div>
+              <div class="stack-name">Flutter</div>
+              <div class="stack-note">Cross-platform UI</div>
+            </div>
           </div>
-          <div class="stack-name">Dart</div>
-        </div>
-        <div class="stack-item">
-          <div class="stack-icon">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/></svg>
+          <div class="stack-card">
+            <div class="stack-ico">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+            </div>
+            <div>
+              <div class="stack-name">Dart</div>
+              <div class="stack-note">Primary language</div>
+            </div>
           </div>
-          <div class="stack-name">Java</div>
+          <div class="stack-card">
+            <div class="stack-ico">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/></svg>
+            </div>
+            <div>
+              <div class="stack-name">Java</div>
+              <div class="stack-note">Backend &amp; Android</div>
+            </div>
+          </div>
+          <div class="stack-card">
+            <div class="stack-ico">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></svg>
+            </div>
+            <div>
+              <div class="stack-name">Supabase</div>
+              <div class="stack-note">Backend &amp; sync</div>
+            </div>
+          </div>
+          <div class="stack-card">
+            <div class="stack-ico">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M22 12H2"/><path d="M5.45 5.11L2 12v6a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-6l-3.45-6.89A2 2 0 0 0 16.76 4H7.24a2 2 0 0 0-1.79 1.11z"/><line x1="6" y1="16" x2="6.01" y2="16"/><line x1="10" y1="16" x2="10.01" y2="16"/></svg>
+            </div>
+            <div>
+              <div class="stack-name">SQLite · Drift</div>
+              <div class="stack-note">Local database</div>
+            </div>
+          </div>
+          <div class="stack-card">
+            <div class="stack-ico">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="4" width="22" height="16" rx="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
+            </div>
+            <div>
+              <div class="stack-name">RevenueCat</div>
+              <div class="stack-note">In-app purchases</div>
+            </div>
+          </div>
         </div>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <!-- Contact -->
-  <section id="contact">
-    <div class="container">
-      <p class="section-label fade-in">Contact</p>
-      <div class="contact-grid fade-in">
-        <a href="mailto:aerendev@gmail.com" class="contact-item">
-          <div class="contact-icon">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+    <!-- Contact -->
+    <section id="contact">
+      <div class="container">
+        <div class="contact-wrap reveal">
+          <h2>Get in <span class="grad">touch</span></h2>
+          <div class="contact-actions">
+            <a href="mailto:aerendev@gmail.com" class="btn btn-primary">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+              aerendev@gmail.com
+            </a>
+            <a href="https://github.com/ahmetereng" target="_blank" rel="noopener" class="btn btn-ghost">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>
+              @ahmetereng
+            </a>
           </div>
-          <div>
-            <div class="contact-label">Email</div>
-            <div class="contact-value">aerendev@gmail.com</div>
-          </div>
-        </a>
-        <a href="https://github.com/ahmetereng" class="contact-item" target="_blank" rel="noopener">
-          <div class="contact-icon">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
-          </div>
-          <div>
-            <div class="contact-label">GitHub</div>
-            <div class="contact-value">ahmetereng</div>
-          </div>
-        </a>
+        </div>
       </div>
-    </div>
-  </section>
+    </section>
+  </main>
 
   <!-- Footer -->
   <footer>
-    <div class="container">
-      <p class="footer-text">
-        <span>Ahmet Eren</span>
-        <span class="dot"></span>
-        Build with Flutter
-        
-      </p>
+    <div class="container footer-inner">
+      <p><span>©</span> 2026 Ahmet Eren</p>
+      <ul class="footer-links">
+        <li><a href="#apps">Apps</a></li>
+        <li><a href="#stack">Stack</a></li>
+        <li><a href="https://github.com/ahmetereng" target="_blank" rel="noopener">GitHub</a></li>
+      </ul>
     </div>
   </footer>
 
   <script>
     const observer = new IntersectionObserver(entries => {
-      entries.forEach((e, i) => {
+      entries.forEach(e => {
         if (e.isIntersecting) {
-          setTimeout(() => e.target.classList.add('visible'), i * 80);
+          e.target.classList.add('visible');
+          observer.unobserve(e.target);
         }
       });
-    }, { threshold: 0.1 });
-
-    document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+    }, { threshold: 0.12 });
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
   </script>
 
 </body>
