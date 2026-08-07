@@ -114,10 +114,14 @@ data is processed in the app. For any privacy question or request, contact
   Apple App Store or Google Play. RevenueCat links your subscription status to
   your account ID so Premium works across your devices. We never see or store
   your payment card or bank details.</li>
-  <li><strong>Technical data.</strong> A per-install identifier tracks the
-  free-scan trial, and our servers use standard rate limiting that briefly
-  processes IP addresses — both purely to prevent abuse. We do not build
-  advertising or behavioural profiles.</li>
+  <li><strong>Technical data.</strong> A device identifier tracks the
+  free-scan trial: on iOS a random ID stored in the device Keychain, on Android
+  the system-provided app-scoped device ID (ANDROID_ID). It is tied to the
+  device rather than the app installation, so it persists if you delete and
+  reinstall the app — this is what keeps the free trial from being reset by
+  reinstalling. Our servers also use standard rate limiting that briefly
+  processes IP addresses. Both are used purely to prevent abuse; we do not
+  build advertising or behavioural profiles.</li>
 </ul>
 
 <h2 id="why">3. Why we process it and our legal bases</h2>
@@ -130,7 +134,7 @@ basis for each use of your data. Here is how each purpose maps to a basis:</p>
   <tr><td>Create your account and sync your kitchen across devices</td><td>Account, kitchen data</td><td>Performance of a contract — Art. 6(1)(b)</td></tr>
   <tr><td>Recognise groceries you submit for AI scanning</td><td>Scan content (photo/voice/text)</td><td>Performance of a contract, at your request — Art. 6(1)(b)</td></tr>
   <tr><td>Unlock and restore your subscription</td><td>Subscription status, account ID</td><td>Performance of a contract — Art. 6(1)(b)</td></tr>
-  <tr><td>Prevent abuse, fraud, and free-scan circumvention; keep the service secure</td><td>Per-install ID, IP (transient)</td><td>Legitimate interests — Art. 6(1)(f)</td></tr>
+  <tr><td>Prevent abuse, fraud, and free-scan circumvention; keep the service secure</td><td>Device ID, IP (transient)</td><td>Legitimate interests — Art. 6(1)(f)</td></tr>
   <tr><td>Send expiry and recap reminders</td><td>On-device schedule; OS notification permission</td><td>Consent — Art. 6(1)(a)</td></tr>
   <tr><td>Respond to legal requests and enforce our terms</td><td>As relevant</td><td>Legal obligation / legitimate interests — Art. 6(1)(c)/(f)</td></tr>
 </tbody>
@@ -187,8 +191,12 @@ the provider. You can request more detail using the contact below.</p>
   (a matter of seconds); it is processed in transit and discarded.</li>
   <li><strong>IP addresses</strong> — processed transiently for rate limiting
   and not stored as persistent logs beyond the short abuse-prevention window.</li>
-  <li><strong>Per-install free-scan identifier</strong> — kept to enforce the
-  trial; removed when you delete the app.</li>
+  <li><strong>Device free-scan identifier</strong> — kept to enforce the
+  trial. Because it lives in the iOS Keychain or is Android's system device ID,
+  it persists on your device after you delete the app, and our record of used
+  free scans may be retained after app or account deletion so the free trial
+  cannot be reset by reinstalling. It identifies only the device's trial usage
+  and is not linked to advertising or profiling.</li>
   <li><strong>On-device data (including Recap history)</strong> — stays on your
   device until you delete it or uninstall the app.</li>
   <li><strong>Support correspondence</strong> — kept only as long as needed to
@@ -245,7 +253,7 @@ behavioural advertising) any personal information</strong>:</p>
 <table>
 <thead><tr><th>Category</th><th>Examples in Chef Fresh</th></tr></thead>
 <tbody>
-  <tr><td>Identifiers</td><td>Name, email, account ID, per-install/device ID, IP address (transient)</td></tr>
+  <tr><td>Identifiers</td><td>Name, email, account ID, device ID, IP address (transient)</td></tr>
   <tr><td>Commercial information</td><td>Subscription status</td></tr>
   <tr><td>Audio/visual information</td><td>Scan photo or voice recording (used once, not stored)</td></tr>
   <tr><td>Internet/network activity</td><td>Minimal, abuse-prevention only</td></tr>
