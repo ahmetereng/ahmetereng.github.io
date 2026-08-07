@@ -8,102 +8,296 @@
   :root { color-scheme: light dark; }
   body {
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-    max-width: 720px; margin: 0 auto; padding: 32px 20px 64px;
-    line-height: 1.6; color: #1a1a1a; background: #ffffff;
+    max-width: 760px; margin: 0 auto; padding: 32px 20px 64px;
+    line-height: 1.62; color: #1a1a1a; background: #ffffff;
   }
   @media (prefers-color-scheme: dark) {
     body { color: #e4e4e7; background: #18181b; }
-    h1, h2 { color: #fafafa; }
+    h1, h2, h3 { color: #fafafa; }
     a { color: #93c5fd; }
+    .box { background: #27272a; border-color: #3f3f46; }
+    th { background: #27272a; }
+    td, th { border-color: #3f3f46; }
+    .toc { background: #27272a; border-color: #3f3f46; }
   }
   h1 { font-size: 1.7em; margin-bottom: 0.2em; }
-  h2 { font-size: 1.2em; margin-top: 1.8em; }
+  h2 { font-size: 1.2em; margin-top: 1.9em; }
+  h3 { font-size: 1.02em; margin-top: 1.3em; margin-bottom: 0.3em; }
   .meta { color: #71717a; font-size: 0.9em; }
   ul { padding-left: 1.2em; }
+  li { margin: 0.3em 0; }
+  a { color: #2563eb; }
+  .box {
+    background: #f4f4f5; border: 1px solid #e4e4e7; border-radius: 10px;
+    padding: 14px 18px; margin: 18px 0; font-size: 0.96em;
+  }
+  .toc {
+    background: #f4f4f5; border: 1px solid #e4e4e7; border-radius: 10px;
+    padding: 10px 18px; margin: 22px 0; font-size: 0.94em;
+  }
+  .toc ol { margin: 0.4em 0; padding-left: 1.4em; }
+  .toc li { margin: 0.15em 0; }
+  table { border-collapse: collapse; width: 100%; margin: 12px 0; font-size: 0.92em; }
+  th, td { border: 1px solid #e4e4e7; padding: 8px 10px; text-align: left; vertical-align: top; }
+  th { background: #f4f4f5; font-weight: 600; }
+  .wrap { overflow-x: auto; }
+  code { font-size: 0.9em; }
 </style>
 </head>
 <body>
 <h1>Privacy Policy</h1>
-<p class="meta">Chef Fresh · Effective date: July 27, 2026</p>
+<p class="meta">Chef Fresh · Version 2.0 · Effective date: August 7, 2026</p>
 
-<p>Chef Fresh ("the app", "we") is a kitchen inventory app that helps you
-track groceries and reduce food waste. We collect only what the app needs to
-work: there are no ads, no tracking, and your data is never sold.</p>
+<p>Chef Fresh ("the app", "we", "us", "our") is a kitchen-inventory app that
+helps you track groceries, get expiry reminders, and reduce food waste. We
+built it to collect as little as possible: <strong>there are no ads, no
+third-party tracking, and we do not sell your data.</strong> This policy
+explains what we handle, why, the legal grounds we rely on, how long we keep
+it, and the rights you have.</p>
 
-<h2>1. Data the app handles</h2>
+<div class="box">
+<strong>The short version.</strong> Your kitchen lives on your device. If you
+sign in, it also syncs to our cloud so it follows you across devices. Scans
+(photo, voice, or text) are sent once to an AI service to recognise your
+groceries and are not stored afterwards. Payments go through Apple or Google —
+we never see your card. You can delete your account and all synced data at any
+time from Settings.
+</div>
+
+<div class="toc">
+<strong>Contents</strong>
+<ol>
+  <li><a href="#who">Who we are (data controller)</a></li>
+  <li><a href="#data">Data the app handles</a></li>
+  <li><a href="#why">Why we process it and our legal bases</a></li>
+  <li><a href="#never">What we never do</a></li>
+  <li><a href="#providers">Service providers</a></li>
+  <li><a href="#transfers">International data transfers</a></li>
+  <li><a href="#retention">How long we keep your data</a></li>
+  <li><a href="#shared">Shared kitchens</a></li>
+  <li><a href="#permissions">Device permissions &amp; notifications</a></li>
+  <li><a href="#rights">Your rights</a></li>
+  <li><a href="#california">California privacy rights (CCPA/CPRA)</a></li>
+  <li><a href="#delete">Deleting your data</a></li>
+  <li><a href="#security">Security</a></li>
+  <li><a href="#children">Children</a></li>
+  <li><a href="#automated">Automated decision-making</a></li>
+  <li><a href="#changes">Changes to this policy</a></li>
+  <li><a href="#contact">Contact</a></li>
+</ol>
+</div>
+
+<h2 id="who">1. Who we are (data controller)</h2>
+<p>Chef Fresh is developed and operated by <strong>Ahmet Eren</strong>, an
+independent developer based in the Republic of
+Türkiye ("we", the "data controller"). We decide how and why your personal
+data is processed in the app. For any privacy question or request, contact
+<a href="mailto:aerendev@gmail.com">aerendev@gmail.com</a> (see
+<a href="#contact">Contact</a>).</p>
+
+<h2 id="data">2. Data the app handles</h2>
 <ul>
   <li><strong>Account.</strong> Signing in with Google or Apple gives us your
   name, email address, and a unique account ID. If you continue as a guest,
   only an anonymous random ID is created — no name, no email.</li>
   <li><strong>Kitchen data.</strong> Your fridge items, shopping list, kitchen
   membership, and chosen display name. This lives on your device and, when you
-  are signed in with an account, is synced to our cloud database so your
-  kitchen follows you across devices. Guest data stays on the device only.
-  Your consumed/wasted history (the Recap feature) is stored on your device
-  only and is never uploaded.</li>
-  <li><strong>AI scan content.</strong> The photo, voice recording, or text
-  you submit for scanning is sent over an encrypted connection through our
-  server to Google's Gemini API, used once to recognize your groceries, and
-  not stored by us afterwards. Please don't include personal information in
-  scans.</li>
+  are signed in, is synced to our cloud database so your kitchen follows you
+  across devices. Guest data stays on the device only. Your consumed/wasted
+  history (the Recap feature) is stored on your device only and is never
+  uploaded.</li>
+  <li><strong>AI scan content.</strong> The photo, voice recording, or text you
+  submit for scanning is sent over an encrypted connection through our server
+  to Google's Gemini API, used once to recognise your groceries, and not stored
+  by us afterwards. Please don't include personal information in scans.</li>
   <li><strong>Subscription status.</strong> Payments happen entirely in the
   Apple App Store or Google Play. RevenueCat links your subscription status to
-  your account ID so Premium works across your devices. We never see your
-  payment details.</li>
+  your account ID so Premium works across your devices. We never see or store
+  your payment card or bank details.</li>
   <li><strong>Technical data.</strong> A per-install identifier tracks the
   free-scan trial, and our servers use standard rate limiting that briefly
-  processes IP addresses — both purely to prevent abuse.</li>
+  processes IP addresses — both purely to prevent abuse. We do not build
+  advertising or behavioural profiles.</li>
 </ul>
 
-<h2>2. What we don't do</h2>
+<h2 id="why">3. Why we process it and our legal bases</h2>
+<p>For users in the EU/EEA and the UK, the GDPR requires us to have a legal
+basis for each use of your data. Here is how each purpose maps to a basis:</p>
+<div class="wrap">
+<table>
+<thead><tr><th>What we do</th><th>Data used</th><th>Legal basis (GDPR Art. 6)</th></tr></thead>
+<tbody>
+  <tr><td>Create your account and sync your kitchen across devices</td><td>Account, kitchen data</td><td>Performance of a contract — Art. 6(1)(b)</td></tr>
+  <tr><td>Recognise groceries you submit for AI scanning</td><td>Scan content (photo/voice/text)</td><td>Performance of a contract, at your request — Art. 6(1)(b)</td></tr>
+  <tr><td>Unlock and restore your subscription</td><td>Subscription status, account ID</td><td>Performance of a contract — Art. 6(1)(b)</td></tr>
+  <tr><td>Prevent abuse, fraud, and free-scan circumvention; keep the service secure</td><td>Per-install ID, IP (transient)</td><td>Legitimate interests — Art. 6(1)(f)</td></tr>
+  <tr><td>Send expiry and recap reminders</td><td>On-device schedule; OS notification permission</td><td>Consent — Art. 6(1)(a)</td></tr>
+  <tr><td>Respond to legal requests and enforce our terms</td><td>As relevant</td><td>Legal obligation / legitimate interests — Art. 6(1)(c)/(f)</td></tr>
+</tbody>
+</table>
+</div>
+<p>Where we rely on legitimate interests, our interest is protecting the app
+and its users from abuse and keeping the service running; we have balanced this
+against your rights. Where we rely on consent (e.g. notifications), you can
+withdraw it at any time without affecting processing that already took place.</p>
+
+<h2 id="never">4. What we never do</h2>
 <ul>
   <li>No advertising and no ad networks.</li>
   <li>No third-party analytics or tracking SDKs.</li>
-  <li>No selling or renting of personal data — ever.</li>
+  <li>We do not sell or rent your personal data, and we do not "share" it for
+  cross-context behavioural advertising.</li>
+</ul>
+<p>If this ever changed, we would update this policy and its effective date,
+notify you in the app, and — where the law requires — ask for your consent
+first. Any such change would apply only to data collected afterwards, never
+retroactively to data you gave us under this version.</p>
+
+<h2 id="providers">5. Service providers</h2>
+<p>The app relies on a small set of processors that handle data only on our
+instructions and only to provide their function:</p>
+<div class="wrap">
+<table>
+<thead><tr><th>Provider</th><th>Purpose</th><th>Typical processing location</th></tr></thead>
+<tbody>
+  <tr><td>Supabase</td><td>Accounts and cloud database (sync)</td><td>Cloud data centres (may be outside your country)</td></tr>
+  <tr><td>Google (Gemini API)</td><td>AI scan processing</td><td>Google Cloud infrastructure</td></tr>
+  <tr><td>RevenueCat</td><td>Subscription management</td><td>United States</td></tr>
+  <tr><td>Apple / Google</td><td>Sign-in and payment processing</td><td>Per their own policies</td></tr>
+</tbody>
+</table>
+</div>
+<p>Each provider has its own privacy policy governing its infrastructure. We do
+not authorise any of them to use your data for their own advertising.</p>
+
+<h2 id="transfers">6. International data transfers</h2>
+<p>Because we use the providers above, your data may be processed in countries
+outside your own, including the United States, which may not offer the same
+level of data protection as your home country. Where the GDPR applies, such
+transfers are protected by appropriate safeguards — typically the European
+Commission's Standard Contractual Clauses or an equivalent mechanism offered by
+the provider. You can request more detail using the contact below.</p>
+
+<h2 id="retention">7. How long we keep your data</h2>
+<ul>
+  <li><strong>Account and synced kitchen data</strong> — kept while your account
+  exists. When you delete your account, it is removed from our active systems
+  promptly and purged from encrypted backups within 30 days.</li>
+  <li><strong>AI scan content</strong> — not retained after the scan completes
+  (a matter of seconds); it is processed in transit and discarded.</li>
+  <li><strong>IP addresses</strong> — processed transiently for rate limiting
+  and not stored as persistent logs beyond the short abuse-prevention window.</li>
+  <li><strong>Per-install free-scan identifier</strong> — kept to enforce the
+  trial; removed when you delete the app.</li>
+  <li><strong>On-device data (including Recap history)</strong> — stays on your
+  device until you delete it or uninstall the app.</li>
+  <li><strong>Support correspondence</strong> — kept only as long as needed to
+  handle your request and any follow-up.</li>
 </ul>
 
-<h2>3. Service providers</h2>
-<p>The app relies on a small set of processors to function: Supabase (accounts
-and cloud database), Google Gemini (AI scan processing), RevenueCat
-(subscription management), and Apple / Google (sign-in and payments). They
-process data only to provide these functions.</p>
+<h2 id="shared">8. Shared kitchens</h2>
+<p>If you share a kitchen, its members see the shared inventory and the display
+name you chose — that's the point of the feature. Any member can edit the
+shared items. Leaving a kitchen keeps a private local copy of the items on your
+own device. Only invite people you trust.</p>
 
-<h2>4. Shared kitchens</h2>
-<p>If you share a kitchen, its members see the shared inventory and the
-display name you chose — that's the point of the feature. Leaving a kitchen
-keeps a private local copy of the items on your own device.</p>
+<h2 id="permissions">9. Device permissions &amp; notifications</h2>
+<p>The app asks for these device permissions only when you use the related
+feature, and you can revoke any of them in your device settings:</p>
+<ul>
+  <li><strong>Camera</strong> — to photograph groceries for AI scanning.</li>
+  <li><strong>Microphone</strong> — to let you say what you bought (voice
+  scanning).</li>
+  <li><strong>Photos</strong> — to pick an existing grocery image to scan.</li>
+  <li><strong>Notifications</strong> — expiry and recap reminders are optional
+  and scheduled locally on your device. Turn them off anytime in the app's
+  Settings or your device's system settings.</li>
+</ul>
 
-<h2>5. Notifications</h2>
-<p>Expiry reminders and recap notifications are optional and scheduled locally
-on your device. Turn them off anytime in the app's Settings or your device's
-system settings.</p>
+<h2 id="rights">10. Your rights</h2>
+<p>Subject to the laws that apply to you (including the GDPR/UK GDPR), you have
+the right to:</p>
+<ul>
+  <li><strong>Access</strong> — get a copy of the personal data we hold about you.</li>
+  <li><strong>Rectification</strong> — correct inaccurate or incomplete data.</li>
+  <li><strong>Erasure</strong> — have your data deleted ("right to be forgotten").</li>
+  <li><strong>Restriction</strong> — limit how we process your data.</li>
+  <li><strong>Portability</strong> — receive your data in a portable format.</li>
+  <li><strong>Objection</strong> — object to processing based on legitimate interests.</li>
+  <li><strong>Withdraw consent</strong> — where processing relies on consent,
+  at any time.</li>
+  <li><strong>Lodge a complaint</strong> — with your local data protection
+  supervisory authority. In Türkiye this is the Personal Data Protection
+  Authority (KVKK); in the EU, your national authority.</li>
+</ul>
+<p>You can exercise most of these directly in the app (see
+<a href="#delete">Deleting your data</a>) or by emailing us. We will respond
+within the timeframe required by applicable law (generally one month under the
+GDPR) and will not charge you or discriminate against you for exercising a
+right.</p>
 
-<h2>6. Deleting your data</h2>
+<h2 id="california">11. California privacy rights (CCPA/CPRA)</h2>
+<p>If you are a California resident, you have rights under the CCPA/CPRA. In the
+past 12 months we have collected the following <em>categories</em> of personal
+information, and <strong>we have not sold or "shared" (for cross-context
+behavioural advertising) any personal information</strong>:</p>
+<div class="wrap">
+<table>
+<thead><tr><th>Category</th><th>Examples in Chef Fresh</th></tr></thead>
+<tbody>
+  <tr><td>Identifiers</td><td>Name, email, account ID, per-install/device ID, IP address (transient)</td></tr>
+  <tr><td>Commercial information</td><td>Subscription status</td></tr>
+  <tr><td>Audio/visual information</td><td>Scan photo or voice recording (used once, not stored)</td></tr>
+  <tr><td>Internet/network activity</td><td>Minimal, abuse-prevention only</td></tr>
+</tbody>
+</table>
+</div>
+<p>We do not knowingly collect sensitive personal information for the purpose of
+inferring characteristics, and we do not use it beyond providing the service.
+California residents may exercise the rights to <strong>know, delete, and
+correct</strong>, and to be free from discrimination for exercising them.
+Because we do not sell or share personal information, no "Do Not Sell or Share
+My Personal Information" action is required, but you may still contact us with
+any request at the address below.</p>
+
+<h2 id="delete">12. Deleting your data</h2>
 <p>You are in control:</p>
 <ul>
   <li><strong>Delete Account</strong> (Settings → Account) permanently deletes
   your account and the data synced to our servers. This cannot be undone.</li>
   <li>Signing out removes the synced data from that device.</li>
-  <li>Deleting the app removes all on-device data, including Recap
-  history.</li>
+  <li>Deleting the app removes all on-device data, including Recap history.</li>
 </ul>
-<p>For any other privacy request, contact us at the address below and we'll
-help as required by the laws that apply to you.</p>
+<p>For any other privacy request, contact us at the address below and we'll help
+as required by the laws that apply to you.</p>
 
-<h2>7. Security</h2>
-<p>All traffic between the app and our servers is encrypted (TLS), and cloud
-data is protected with row-level security so each account can only reach its
-own kitchen's data.</p>
+<h2 id="security">13. Security</h2>
+<p>All traffic between the app and our servers is encrypted in transit (TLS),
+and cloud data is protected with row-level security so each account can only
+reach its own kitchen's data. No method of transmission or storage is 100%
+secure, but we take reasonable measures to protect your information and keep our
+data footprint small.</p>
 
-<h2>8. Children</h2>
-<p>Chef Fresh is not directed at children under 13, and we do not knowingly
-collect personal data from them.</p>
+<h2 id="children">14. Children</h2>
+<p>Chef Fresh is a general-audience app and is not directed to children. We do
+not knowingly collect personal data from children under 13 (or the minimum age
+of digital consent in your country, which can be up to 16 in parts of the EU).
+If you believe a child has provided us personal data, contact us and we will
+delete it.</p>
 
-<h2>9. Changes to this policy</h2>
-<p>If this policy changes, we'll update this page and its effective date;
-material changes will be communicated in the app.</p>
+<h2 id="automated">15. Automated decision-making</h2>
+<p>AI scanning suggests item names, quantities, and estimated expiry dates to
+save you typing, and you can always review and edit them. It does not make any
+decision that produces legal or similarly significant effects about you, so it
+is not "automated decision-making" in the sense of GDPR Article 22.</p>
 
-<h2>10. Contact</h2>
-<p>Questions or requests: <a href="mailto:aerendev@gmail.com">aerendev@gmail.com</a></p>
+<h2 id="changes">16. Changes to this policy</h2>
+<p>If this policy changes, we'll update this page and its version and effective
+date above; material changes will also be communicated in the app. Continued
+use after an update means you acknowledge the revised policy.</p>
+
+<h2 id="contact">17. Contact</h2>
+<p>Questions or requests: <a href="mailto:aerendev@gmail.com">aerendev@gmail.com</a><br>
+Data controller: Ahmet Eren, Fatih, İstanbul, Republic of Türkiye.</p>
 </body>
 </html>
