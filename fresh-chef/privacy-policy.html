@@ -46,7 +46,7 @@
 </head>
 <body>
 <h1>Privacy Policy</h1>
-<p class="meta">Chef Fresh · Effective date: August 7, 2026</p>
+<p class="meta">Chef Fresh · Effective date: August 23, 2026</p>
 
 <p>Chef Fresh ("the app", "we", "us", "our") is a kitchen-inventory app that
 helps you track groceries, get expiry reminders, and reduce food waste. We
@@ -57,9 +57,10 @@ it, and the rights you have.</p>
 
 <div class="box">
 <strong>The short version.</strong> Your kitchen lives on your device. If you
-sign in, it also syncs to our cloud so it follows you across devices. Scans
-(photo, voice, or text) are sent once to an AI service to recognise your
-groceries and are not stored afterwards. Payments go through Apple or Google —
+sign in, it also syncs to our cloud so it follows you across devices. AI features (scanning
+and recipe suggestions) send your input to <strong>Google's Gemini API</strong>
+— the app explains exactly what is sent and asks you to accept before anything
+leaves your device. Payments go through Apple or Google —
 we never see your card. You can delete your account and all synced data at any
 time from Settings.
 </div>
@@ -71,6 +72,7 @@ time from Settings.
   <li><a href="#data">Data the app handles</a></li>
   <li><a href="#why">Why we process it and our legal bases</a></li>
   <li><a href="#never">What we never do</a></li>
+  <li><a href="#ai">AI features: what is shared with Google</a></li>
   <li><a href="#providers">Service providers</a></li>
   <li><a href="#transfers">International data transfers</a></li>
   <li><a href="#retention">How long we keep your data</a></li>
@@ -106,10 +108,16 @@ data is processed in the app. For any privacy question or request, contact
   across devices. Guest data stays on the device only. Your consumed/wasted
   history (the Recap feature) is stored on your device only and is never
   uploaded.</li>
-  <li><strong>AI scan content.</strong> The photo, voice recording, or text you
-  submit for scanning is sent over an encrypted connection through our server
-  to Google's Gemini API, used once to recognise your groceries, and not stored
-  by us afterwards. Please don't include personal information in scans.</li>
+  <li><strong>AI input.</strong> What you submit to an AI feature: the photo
+  you take or pick, the voice note you record, the text you type, and — when
+  you ask for recipe suggestions — the <em>names</em> of the items currently in
+  your fridge. Your app language is sent along so answers come back in it. This
+  is collected only at the moment you start an AI action (camera, microphone,
+  keyboard, or your existing fridge list), never in the background. It is sent
+  over an encrypted connection through our server to Google's Gemini API, used
+  once to answer that request, and not stored by us afterwards. See
+  <a href="#ai">AI features</a> for the full detail. Please don't include
+  personal information in what you send.</li>
   <li><strong>Subscription status.</strong> Payments happen entirely in the
   Apple App Store or Google Play. RevenueCat links your subscription status to
   your account ID so Premium works across your devices. We never see or store
@@ -133,6 +141,8 @@ basis for each use of your data. Here is how each purpose maps to a basis:</p>
 <tbody>
   <tr><td>Create your account and sync your kitchen across devices</td><td>Account, kitchen data</td><td>Performance of a contract — Art. 6(1)(b)</td></tr>
   <tr><td>Recognise groceries you submit for AI scanning</td><td>Scan content (photo/voice/text)</td><td>Performance of a contract, at your request — Art. 6(1)(b)</td></tr>
+  <tr><td>Suggest recipes you can cook</td><td>Names of your fridge items, your optional note and preferences</td><td>Performance of a contract, at your request — Art. 6(1)(b)</td></tr>
+  <tr><td>Share the above with Google (Gemini API) so it can be processed</td><td>AI input as listed</td><td>Performance of a contract — Art. 6(1)(b): AI recognition is the service itself and cannot be delivered without it. The app discloses the transfer and asks you to accept it before the first transfer.</td></tr>
   <tr><td>Unlock and restore your subscription</td><td>Subscription status, account ID</td><td>Performance of a contract — Art. 6(1)(b)</td></tr>
   <tr><td>Prevent abuse, fraud, and free-scan circumvention; keep the service secure</td><td>Device ID, IP (transient)</td><td>Legitimate interests — Art. 6(1)(f)</td></tr>
   <tr><td>Send expiry and recap reminders</td><td>On-device schedule; OS notification permission</td><td>Consent — Art. 6(1)(a)</td></tr>
@@ -157,7 +167,72 @@ notify you in the app, and — where the law requires — ask for your consent
 first. Any such change would apply only to data collected afterwards, never
 retroactively to data you gave us under this version.</p>
 
-<h2 id="providers">5. Service providers</h2>
+<h2 id="ai">5. AI features: what is shared with Google</h2>
+<p>Chef Fresh has no AI model of its own. Two features — <strong>scanning</strong>
+(recognising groceries from a photo, a voice note, or typed text) and
+<strong>recipe suggestions</strong> — work by sending your input to
+<strong>Google's Gemini API</strong> and showing you what comes back. Because
+that means your data leaves your device and reaches a third-party AI service,
+we set it out in full here.</p>
+
+<h3>What is sent</h3>
+<ul>
+  <li>The photo you take or choose from your library, when you scan.</li>
+  <li>The voice note you record, when you speak your groceries.</li>
+  <li>The text you type into the AI message box.</li>
+  <li>For recipe suggestions: the <em>names</em> of the items currently in your
+  fridge, plus any note and preferences you set on that screen.</li>
+  <li>Your app language, so the answer comes back in the language you read.</li>
+</ul>
+
+<h3>What is never sent</h3>
+<ul>
+  <li>Your name, e-mail address, or account ID.</li>
+  <li>Your location — the app never asks for it.</li>
+  <li>Your Recap history, shopping list, or kitchen-membership details.</li>
+</ul>
+
+<h3>Who receives it, and what they may do with it</h3>
+<p>The recipient is <strong>Google</strong>, through the Gemini API. The request
+travels from your device to our own server (Supabase Edge Functions) over an
+encrypted connection and is forwarded from there — the API key never sits on
+your device. We use the <strong>paid tier</strong> of the Gemini API, under
+which Google's own terms state that it <strong>does not use your prompts or the
+responses to train or improve its models</strong>, and there is no human review
+for model improvement. Google logs the request for a limited period solely to
+detect abuse of its service. Google's handling is governed by the
+<a href="https://ai.google.dev/gemini-api/terms">Gemini API Additional Terms of
+Service</a> and the
+<a href="https://cloud.google.com/terms/data-processing-addendum">Google Cloud
+Data Processing Addendum</a>, which commit it to protections equivalent to
+those described in this policy.</p>
+
+<h3>Your permission</h3>
+<p>Before anything is sent to Google, and before you can use the app, Chef Fresh
+shows you a screen naming Google and Gemini, listing exactly what will be
+transmitted, and asking you to accept. Nothing is sent unless you tap
+<em>Accept and continue</em>.</p>
+<p>AI recognition and AI recipes are what Chef Fresh <em>is</em> — the app is
+built around them rather than offering them as an extra — so accepting is
+required to use it. If you do not want your input shared with Google on these
+terms, please do not accept: simply close the app, and nothing will have been
+sent. You can withdraw at any later point by deleting your account in
+<strong>Settings → Account</strong> and removing the app, which stops any
+further sharing and erases the data we hold (see
+<a href="#delete">Deleting your data</a>). Because nothing you send is retained
+after a request completes, there is nothing left with Google to delete.</p>
+
+<h3>How long it is kept</h3>
+<p>We do not store your AI input or the response: both exist only for the
+seconds the request takes. Recognised items are saved only after you review and
+confirm them, and are then ordinary fridge data.</p>
+
+<h3>A note on accuracy</h3>
+<p>AI output is a suggestion, not a fact. Item names, quantities, estimated
+expiry dates and recipes should be checked before you rely on them — especially
+for allergies and food safety.</p>
+
+<h2 id="providers">6. Service providers</h2>
 <p>The app relies on a small set of processors that handle data only on our
 instructions and only to provide their function:</p>
 <div class="wrap">
@@ -165,16 +240,20 @@ instructions and only to provide their function:</p>
 <thead><tr><th>Provider</th><th>Purpose</th><th>Typical processing location</th></tr></thead>
 <tbody>
   <tr><td>Supabase</td><td>Accounts and cloud database (sync)</td><td>Cloud data centres (may be outside your country)</td></tr>
-  <tr><td>Google (Gemini API)</td><td>AI scan processing</td><td>Google Cloud infrastructure</td></tr>
+  <tr><td>Google (Gemini API)</td><td>AI scanning and recipe generation (see <a href="#ai">section 5</a>)</td><td>Google Cloud infrastructure</td></tr>
   <tr><td>RevenueCat</td><td>Subscription management</td><td>United States</td></tr>
   <tr><td>Apple / Google</td><td>Sign-in and payment processing</td><td>Per their own policies</td></tr>
 </tbody>
 </table>
 </div>
-<p>Each provider has its own privacy policy governing its infrastructure. We do
-not authorise any of them to use your data for their own advertising.</p>
+<p>Each provider has its own privacy policy governing its infrastructure. Each
+is bound by a data-processing agreement requiring it to protect your data to a
+standard equivalent to the one described in this policy, to process it only on
+our instructions and only for the purpose listed above, and to keep it
+confidential. We do not authorise any of them to use your data for their own
+advertising, and none of them is permitted to use it to train AI models.</p>
 
-<h2 id="transfers">6. International data transfers</h2>
+<h2 id="transfers">7. International data transfers</h2>
 <p>Because we use the providers above, your data may be processed in countries
 outside your own, including the United States, which may not offer the same
 level of data protection as your home country. Where the GDPR applies, such
@@ -182,13 +261,15 @@ transfers are protected by appropriate safeguards — typically the European
 Commission's Standard Contractual Clauses or an equivalent mechanism offered by
 the provider. You can request more detail using the contact below.</p>
 
-<h2 id="retention">7. How long we keep your data</h2>
+<h2 id="retention">8. How long we keep your data</h2>
 <ul>
   <li><strong>Account and synced kitchen data</strong> — kept while your account
   exists. When you delete your account, it is removed from our active systems
   promptly and purged from encrypted backups within 30 days.</li>
-  <li><strong>AI scan content</strong> — not retained after the scan completes
-  (a matter of seconds); it is processed in transit and discarded.</li>
+  <li><strong>AI input</strong> (scan content and recipe requests) — not
+  retained after the request completes (a matter of seconds); it is processed in
+  transit and discarded. Google keeps a short abuse-prevention log of its own,
+  as described in <a href="#ai">section 5</a>.</li>
   <li><strong>IP addresses</strong> — processed transiently for rate limiting
   and not stored as persistent logs beyond the short abuse-prevention window.</li>
   <li><strong>Device free-scan identifier</strong> — kept to enforce the
@@ -203,15 +284,17 @@ the provider. You can request more detail using the contact below.</p>
   handle your request and any follow-up.</li>
 </ul>
 
-<h2 id="shared">8. Shared kitchens</h2>
+<h2 id="shared">9. Shared kitchens</h2>
 <p>If you share a kitchen, its members see the shared inventory and the display
 name you chose — that's the point of the feature. Any member can edit the
 shared items. Leaving a kitchen keeps a private local copy of the items on your
 own device. Only invite people you trust.</p>
 
-<h2 id="permissions">9. Device permissions &amp; notifications</h2>
+<h2 id="permissions">10. Device permissions &amp; notifications</h2>
 <p>The app asks for these device permissions only when you use the related
-feature, and you can revoke any of them in your device settings:</p>
+feature, and you can revoke any of them in your device settings. Separately from
+these, the app asks you to accept the sharing of AI input with Google before you
+can use it at all — see <a href="#ai">section 5</a>.</p>
 <ul>
   <li><strong>Camera</strong> — to photograph groceries for AI scanning.</li>
   <li><strong>Microphone</strong> — to let you say what you bought (voice
@@ -222,7 +305,7 @@ feature, and you can revoke any of them in your device settings:</p>
   Settings or your device's system settings.</li>
 </ul>
 
-<h2 id="rights">10. Your rights</h2>
+<h2 id="rights">11. Your rights</h2>
 <p>Subject to the laws that apply to you (including the GDPR/UK GDPR), you have
 the right to:</p>
 <ul>
@@ -244,7 +327,7 @@ within the timeframe required by applicable law (generally one month under the
 GDPR) and will not charge you or discriminate against you for exercising a
 right.</p>
 
-<h2 id="california">11. California privacy rights (CCPA/CPRA)</h2>
+<h2 id="california">12. California privacy rights (CCPA/CPRA)</h2>
 <p>If you are a California resident, you have rights under the CCPA/CPRA. In the
 past 12 months we have collected the following <em>categories</em> of personal
 information, and <strong>we have not sold or "shared" (for cross-context
@@ -268,7 +351,7 @@ Because we do not sell or share personal information, no "Do Not Sell or Share
 My Personal Information" action is required, but you may still contact us with
 any request at the address below.</p>
 
-<h2 id="delete">12. Deleting your data</h2>
+<h2 id="delete">13. Deleting your data</h2>
 <p>You are in control:</p>
 <ul>
   <li><strong>Delete Account</strong> (Settings → Account) permanently deletes
@@ -279,32 +362,33 @@ any request at the address below.</p>
 <p>For any other privacy request, contact us at the address below and we'll help
 as required by the laws that apply to you.</p>
 
-<h2 id="security">13. Security</h2>
+<h2 id="security">14. Security</h2>
 <p>All traffic between the app and our servers is encrypted in transit (TLS),
 and cloud data is protected with row-level security so each account can only
 reach its own kitchen's data. No method of transmission or storage is 100%
 secure, but we take reasonable measures to protect your information and keep our
 data footprint small.</p>
 
-<h2 id="children">14. Children</h2>
+<h2 id="children">15. Children</h2>
 <p>Chef Fresh is a general-audience app and is not directed to children. We do
 not knowingly collect personal data from children under 13 (or the minimum age
 of digital consent in your country, which can be up to 16 in parts of the EU).
 If you believe a child has provided us personal data, contact us and we will
 delete it.</p>
 
-<h2 id="automated">15. Automated decision-making</h2>
+<h2 id="automated">16. Automated decision-making</h2>
 <p>AI scanning suggests item names, quantities, and estimated expiry dates to
-save you typing, and you can always review and edit them. It does not make any
+save you typing, and recipe suggestions propose dishes; you can always review
+and edit both (see <a href="#ai">section 5</a>). It does not make any
 decision that produces legal or similarly significant effects about you, so it
 is not "automated decision-making" in the sense of GDPR Article 22.</p>
 
-<h2 id="changes">16. Changes to this policy</h2>
+<h2 id="changes">17. Changes to this policy</h2>
 <p>If this policy changes, we'll update this page and its effective date above;
 material changes will also be communicated in the app. Continued
 use after an update means you acknowledge the revised policy.</p>
 
-<h2 id="contact">17. Contact</h2>
+<h2 id="contact">18. Contact</h2>
 <p>Questions or requests: <a href="mailto:aegerapps@gmail.com">aegerapps@gmail.com</a><br>
 Data controller: Ahmet Eren, Fatih, İstanbul, Republic of Türkiye.</p>
 </body>
